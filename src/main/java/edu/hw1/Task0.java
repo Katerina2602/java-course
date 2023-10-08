@@ -3,14 +3,10 @@ package edu.hw1;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@SuppressWarnings("uncommentedmain")
 public class Task0 {
-    private final static Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
-    private Task0() {
-    }
-
-    public static void main(String[] args) {
+    public void printHelloWorld() {
         LOGGER.info("Привет, мир!");
     }
 }

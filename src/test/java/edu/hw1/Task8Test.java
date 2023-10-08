@@ -32,6 +32,17 @@ class Task8Test {
             new int[] {1, 0, 0, 0, 1, 0, 1, 0},
             new int[] {0, 0, 0, 1, 0, 1, 0, 1}
         };
+        int[][] matrix3 = new int[][] {
+            new int[] {0, 0, 0, 0, 1, 0, 0, 0},
+            new int[] {0, 0, 0, 0, 0, 1, 0, 0},
+            new int[] {0, 0, 0, 1, 0, 0, 0, 0},
+            new int[] {1, 0, 0, 0, 0, 0, 0, 0},
+            new int[] {0, 0, 0, 0, 1, 0, 0, 0},
+            new int[] {0, 0, 0, 0, 0, 1, 0, 0},
+            new int[] {0, 0, 0, 0, 0, 1, 0, 0},
+            new int[] {1, 0, 0, 0, 0, 0, 0, 0}
+        };
         assertFalse(Task8.knightBoardCapture(matrix2));
+        assertFalse(Task8.knightBoardCapture(matrix3));
     }
 }

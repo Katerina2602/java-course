@@ -5,22 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Task7Test {
     @Test
-    public  void willWorkCorrectlyWhenRotateRight(){
+    void willWorkCorrectlyWhenRotateRight(){
         assertEquals(4, Task7.rotateRight(8,1));
         assertEquals(8, Task7.rotateRight(8,4));
         assertEquals(6, Task7.rotateRight(17,3));
-
-
     }
     @Test
-    public  void willWorkCorrectlyWhenRotateLeft() {
-        assertEquals(6, Task7.rotateLeft(17,2));
+    void willWorkCorrectlyWhenRotateLeft() {
+       assertEquals(6, Task7.rotateLeft(17,2));
         assertEquals(1, Task7.rotateLeft(16,1));
         assertEquals(5, Task7.rotateLeft(6,1));
     }
 
     @Test
-    public void willWorkCorrectlyWhenShiftIsGreaterThanDigitOfNumber(){
+    void willWorkCorrectlyWhenShiftIsGreaterThanDigitOfNumber(){
         assertEquals(8, Task7.rotateRight(8,12));
         assertEquals(0, Task7.rotateRight(0,12));
         assertEquals(1, Task7.rotateRight(1,11));

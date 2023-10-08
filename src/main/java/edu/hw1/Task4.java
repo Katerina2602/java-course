@@ -5,16 +5,16 @@ public class Task4 {
     private Task4() {
     }
 
-    public static String fixString(String str) {
-        StringBuilder newStr = new StringBuilder();
+    public static String fixString(String sourceString) {
+        StringBuilder fixedString = new StringBuilder(sourceString.length());
 
-        for (int i = 0; i < str.length() - 1; i += 2) {
-            newStr.append(str.charAt(i + 1)).append(str.charAt(i));
+        for (int i = 0; i < sourceString.length() - 1; i += 2) {
+            fixedString.append(sourceString.charAt(i + 1)).append(sourceString.charAt(i));
         }
 
-        if (str.length() != newStr.length()) {
-            newStr.append(str.charAt(str.length() - 1));
+        if (sourceString.length() != fixedString.length()) {
+            fixedString.append(sourceString.charAt(sourceString.length() - 1));
         }
-        return newStr.toString();
+        return fixedString.toString();
     }
 }

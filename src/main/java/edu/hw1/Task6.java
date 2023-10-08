@@ -2,47 +2,67 @@ package edu.hw1;
 
 import java.util.Arrays;
 
-@SuppressWarnings("MagicNumber")
 public class Task6 {
+    private static final int TEN = 10;
+    private static final int HUNDRED = 100;
+    private static final int THOUSAND = 1000;
+    private static final int KAPREKARA_NUMBER = 6174;
+    private static final int MIN_AVAILABLE = 1000;
+    private static final int MAX_AVAILABLE = 9999;
+    private static final int DIGIT_COUNT = 4;
+    private static final int FIRST_ELEMENT_ARRAY = 0;
+    private static final int SECOND_ELEMENT_ARRAY = 1;
+    private static final int THIRD_ELEMENT_ARRAY = 2;
+    private static final int FOURTH_ELEMENT_ARRAY = 3;
 
     private Task6() {
     }
 
-    public static int countK(int number) {
-        return countK(number, 0);
+    public static int countSteps(int number) {
+        return countSteps(number, 0);
     }
 
-    public static int countK(int num, int cnt) {
-        int number = num;
-        int count = cnt;
+    public static int countSteps(int sourceNumber, int steps) {
 
-        if (number <= 1000 || number > 9999) {
+        if (sourceNumber <= MIN_AVAILABLE || sourceNumber > MAX_AVAILABLE) {
             return -1;
         }
-        if (number == 6174) {
-            return count;
+        if (sourceNumber == KAPREKARA_NUMBER) {
+            return steps;
         }
-        int[] arrayNumber = new int[4];
-        arrayNumber[0] = number % 10;
-        number = number / 10;
-        arrayNumber[1] = number % 10;
-        number = number / 10;
-        arrayNumber[2] = number % 10;
-        number = number / 10;
-        arrayNumber[3] = number % 10;
+        int newNumber = sourceNumber;
+        int[] digitNumber = new int[DIGIT_COUNT];
 
-        if (arrayNumber[0] == arrayNumber[1] && arrayNumber[1] == arrayNumber[2] && arrayNumber[2] == arrayNumber[3]) {
+        for (int i = 0; i < DIGIT_COUNT; i++) {
+            digitNumber[i] = newNumber % TEN;
+            newNumber = newNumber / TEN;
+        }
+
+        if (digitNumber[FIRST_ELEMENT_ARRAY] == digitNumber[SECOND_ELEMENT_ARRAY]
+            && digitNumber[SECOND_ELEMENT_ARRAY] == digitNumber[THIRD_ELEMENT_ARRAY]
+            && digitNumber[THIRD_ELEMENT_ARRAY] == digitNumber[FOURTH_ELEMENT_ARRAY]) {
             return -1;
         }
 
-        Arrays.sort(arrayNumber);
+        Arrays.sort(digitNumber);
 
-        int numberMax = arrayNumber[0] + arrayNumber[1] * 10 + arrayNumber[2] * 100 + arrayNumber[3] * 1000;
-        int numberMin = arrayNumber[3] + arrayNumber[2] * 10 + arrayNumber[1] * 100 + arrayNumber[0] * 1000;
-        number = numberMax - numberMin;
-        count++;
-        count = countK(number, count);
+        int numberMax = getMaxNumberFromArray(digitNumber);
+        int numberMin = getMinNumberFromArray(digitNumber);
+        int delta = numberMax - numberMin;
+        if (delta < THOUSAND) {
+            delta = delta * TEN;
+        }
 
-        return count;
+        return countSteps(delta, steps + 1);
+    }
+
+    private static int getMaxNumberFromArray(int[] array) {
+        return array[FIRST_ELEMENT_ARRAY] + array[SECOND_ELEMENT_ARRAY] * TEN
+            + array[THIRD_ELEMENT_ARRAY] * HUNDRED + array[FOURTH_ELEMENT_ARRAY] * THOUSAND;
+    }
+
+    private static int getMinNumberFromArray(int[] array) {
+        return array[FOURTH_ELEMENT_ARRAY] + array[THIRD_ELEMENT_ARRAY] * TEN
+            + array[SECOND_ELEMENT_ARRAY] * HUNDRED + array[FIRST_ELEMENT_ARRAY] * THOUSAND;
     }
 }

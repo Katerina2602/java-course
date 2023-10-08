@@ -6,16 +6,16 @@ public class Task2 {
     private Task2() {
     }
 
-    public static int countDigits(int number) {
-        if (number == 0) {
+    public static int countDigits(int sourceNumber) {
+        if (sourceNumber == 0) {
             return 1;
         }
 
         int count = 0;
-        int num = number;
+        int currentNumber = sourceNumber;
 
-        while (num != 0) {
-            num = num / TEN;
+        while (currentNumber != 0) {
+            currentNumber = currentNumber / TEN;
             count++;
         }
 
