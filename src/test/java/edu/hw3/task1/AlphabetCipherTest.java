@@ -3,7 +3,7 @@ package edu.hw3.task1;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class AtbashCipherTest {
+class AlphabetCipherTest {
     private static final AtbashCipher atbashCipher = new AtbashCipher();
 
     @Test

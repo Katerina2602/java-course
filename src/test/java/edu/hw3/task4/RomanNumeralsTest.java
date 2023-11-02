@@ -7,16 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class RomanNumeralsTest {
     @Test
     void willReturnRomanNumerals() {
-        assertEquals("X", RomanNumerals.getRumanNumerals(10));
-        assertEquals("XVI", RomanNumerals.getRumanNumerals(16));
-        assertEquals("CLV", RomanNumerals.getRumanNumerals(155));
-        assertEquals("MCLV", RomanNumerals.getRumanNumerals(1155));
-        assertEquals("MMMCMXCIX", RomanNumerals.getRumanNumerals(3999));
+        assertEquals("X", RomanNumerals.getRomanNumerals(10));
+        assertEquals("XVI", RomanNumerals.getRomanNumerals(16));
+        assertEquals("CLV", RomanNumerals.getRomanNumerals(155));
+        assertEquals("MCLV", RomanNumerals.getRomanNumerals(1155));
+        assertEquals("MMMCMXCIX", RomanNumerals.getRomanNumerals(3999));
     }
 
     @Test
     void willReturnErrorWhenTheNumberIsNotWithinTheSpecifiedRange() {
-        assertThrows(IllegalArgumentException.class, () -> RomanNumerals.getRumanNumerals(40000));
-        assertThrows(IllegalArgumentException.class, () -> RomanNumerals.getRumanNumerals(-300));
+        assertThrows(IllegalArgumentException.class, () -> RomanNumerals.getRomanNumerals(40000));
+        assertThrows(IllegalArgumentException.class, () -> RomanNumerals.getRomanNumerals(-300));
     }
 }

@@ -19,6 +19,6 @@ public class StockMarketImpl implements StockMarket {
 
     @Override
     public Stock mostValuableStock() {
-        return stocks.poll();
+        return stocks.peek();
     }
 }

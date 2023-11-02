@@ -24,9 +24,6 @@ public class BackwardIterator<T> implements Iterator<T> {
             throw new NoSuchElementException();
         }
 
-        T element = list.get(cursor);
-        cursor--;
-
-        return element;
+        return list.get(cursor--);
     }
 }

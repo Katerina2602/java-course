@@ -17,17 +17,18 @@ public class Bracket {
 
         while (i < str.length()) {
             do {
-                if (str.charAt(i) == '(') {
-                    openBracket++;
-                }
-                if (str.charAt(i) == ')') {
-                    closBracket++;
+                switch (str.charAt(i)) {
+                    case '(' -> openBracket++;
+                    case ')' -> closBracket++;
+                    default -> throw new IllegalArgumentException();
                 }
                 i++;
             } while (openBracket != closBracket && i < str.length() && closBracket < openBracket);
+
             if (closBracket != openBracket) {
                 throw new IllegalArgumentException("String is not balanced");
             }
+
             cluster.add(str.substring(startIndexCluster, i));
             if (i != str.length() - 1) {
                 startIndexCluster = i;

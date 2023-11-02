@@ -9,11 +9,13 @@ public class WordFrequency {
 
     }
 
-    public static Map<Object, Integer> countWord(List<Object> listOfObjects) {
-        Map<Object, Integer> frequencyDictionary = new HashMap<>();
-        for (int i = 0; i < listOfObjects.size(); i++) {
-            frequencyDictionary.merge(listOfObjects.get(i), 1, Integer::sum);
+    public static <T> Map<T, Integer> countWord(List<T> listOfObjects) {
+        Map<T, Integer> frequencyDictionary = new HashMap<>();
+
+        for (T listOfObject : listOfObjects) {
+            frequencyDictionary.merge(listOfObject, 1, Integer::sum);
         }
+
         return frequencyDictionary;
     }
 }
