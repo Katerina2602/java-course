@@ -29,7 +29,7 @@ public class SolverTremo implements Solver {
 
         count = grid[start.getRow()][start.getCol()];
 
-        return saveThePath(start, grid, count);
+        return saveThePath(start, grid, count, maze);
     }
 
     private void checkingCoordinateBoundaries(Maze maze, Coordinate coordinate) {
@@ -59,7 +59,7 @@ public class SolverTremo implements Solver {
 
     }
 
-    private List<Coordinate> saveThePath(Coordinate current, int[][] grid, int num) {
+    private List<Coordinate> saveThePath(Coordinate current, int[][] grid, int num, Maze maze) {
 
         int count = num;
         List<Coordinate> list = new ArrayList<>();
@@ -71,6 +71,8 @@ public class SolverTremo implements Solver {
             count = searchPath(list.getLast().getRow(), list.getLast().getCol() + 1, grid, count, list);
 
         }
+        Renderer renderer = new ConsoleRenderer();
+        renderer.render(maze, list);
         return list;
     }
 

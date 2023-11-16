@@ -1,6 +1,5 @@
 package edu.project2;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,61 +20,34 @@ public class SolverBacktrackingSearch implements Solver {
         Cell[][] grid = preparationGrid(maze);
         grid[start.getRow()][start.getCol()].setType(Cell.Type.VISITED);
         List<Coordinate> neighbors;
-        List<Coordinate> cellVisition = new LinkedList<>();
-        cellVisition.add(current);
+        List<Coordinate> cellVisited = new LinkedList<>();
+        cellVisited.add(current);
         while (!current.equals(end)) {
 
-            neighbors = getNeighbours(maze.getHeight(), maze.getWidth(), grid, current);
+            neighbors = Neighbours.getNeighbours(maze.getHeight(), maze.getWidth(), grid, current, 1);
 
-            if (neighbors.size() != 0) {
+            if (!neighbors.isEmpty()) {
 
                 int random = randomizer.nextInt(neighbors.size());
                 current = new Coordinate(neighbors.get(random).getRow(), neighbors.get(random).getCol());
                 grid[current.getRow()][current.getCol()].setType(Cell.Type.VISITED);
-                cellVisition.add(current);
+                cellVisited.add(current);
 
-            } else if (cellVisition.size() > 0) {
-                cellVisition.removeLast();
-                if (cellVisition.size() != 0) {
-                    current = cellVisition.getLast();
+            } else if (!cellVisited.isEmpty()) {
+                cellVisited.removeLast();
+                if (!cellVisited.isEmpty()) {
+                    current = cellVisited.getLast();
                 }
 
             } else {
-                //   System.out.print("Не возможно найти путь");
                 return Collections.emptyList();
             }
 
         }
 
         Renderer renderer = new ConsoleRenderer();
-        renderer.render(maze, cellVisition);
-        return cellVisition;
-    }
-
-    private List<Coordinate> getNeighbours(int height, int width, Cell[][] maze, Coordinate c) {
-
-        int x = c.getRow();
-        int y = c.getCol();
-        int distance = 1;
-        Coordinate up = new Coordinate(x, y - distance);
-        Coordinate rt = new Coordinate(x + distance, y);
-        Coordinate dw = new Coordinate(x, y + distance);
-        Coordinate lt = new Coordinate(x - distance, y);
-        Coordinate[] d = {up, rt, dw, lt};
-        List<Coordinate> cell = new ArrayList<>();
-
-        for (int i = 0; i < d.length; i++) {
-            if (d[i].getRow() >= 0 && d[i].getRow() < height && d[i].getCol() >= 0 && d[i].getCol() < width) {
-                if (maze[d[i].getRow()][d[i].getCol()].getType() != Cell.Type.WALL
-                    && maze[d[i].getRow()][d[i].getCol()].getType() != Cell.Type.VISITED) {
-                    cell.add(d[i]);
-                }
-            }
-
-        }
-
-        return cell;
-
+        renderer.render(maze, cellVisited);
+        return cellVisited;
     }
 
     private Cell[][] preparationGrid(Maze maze) {

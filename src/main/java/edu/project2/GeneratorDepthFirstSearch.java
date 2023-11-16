@@ -17,23 +17,23 @@ public class GeneratorDepthFirstSearch implements Generator {
         Coordinate current = new Coordinate(1, 1);
         maze[current.getRow()][current.getCol()].setType(Cell.Type.VISITED);
         Coordinate currentNeighbors;
-        List<Coordinate> cellVisition = new LinkedList<>();
-        List<Coordinate> unvisitedCells = new ArrayList<>();
+        List<Coordinate> cellVisited = new LinkedList<>();
+        List<Coordinate> unvisitedCells;
         do {
-            neighbors = getNeighbours(height, width, maze, current);
-            if (neighbors.size() != 0) {
+            neighbors = Neighbours.getNeighbours(height, width, maze, current, 2);
+            if (!neighbors.isEmpty()) {
                 int random = randomizer.nextInt(neighbors.size());
                 currentNeighbors = new Coordinate(
                     neighbors.get(random).getRow(),
                     neighbors.get(random).getCol()
                 );
-                cellVisition.add(currentNeighbors);
+                cellVisited.add(currentNeighbors);
                 removeWall(current, currentNeighbors, maze);
                 current = currentNeighbors;
                 maze[current.getRow()][current.getCol()].setType(Cell.Type.VISITED);
-            } else if (cellVisition.size() > 0) {
-                cellVisition.removeLast();
-                current = cellVisition.getLast();
+            } else if (!cellVisited.isEmpty()) {
+                cellVisited.removeLast();
+                current = cellVisited.getLast();
 
             } else {
 
@@ -45,7 +45,7 @@ public class GeneratorDepthFirstSearch implements Generator {
             }
             unvisitedCells = getUnvisitedCells(height, width, maze);
 
-        } while (unvisitedCells.size() > 0);
+        } while (!unvisitedCells.isEmpty());
 
         return new Maze(height, width, maze);
     }
@@ -79,33 +79,6 @@ public class GeneratorDepthFirstSearch implements Generator {
         }
 
         maze[first.getRow() + addX][first.getCol() + addY].setType(Cell.Type.VISITED);
-
-    }
-
-    private List<Coordinate> getNeighbours(int height, int width, Cell[][] maze, Coordinate c) {
-
-        int x = c.getRow();
-        int y = c.getCol();
-        int distance = 2;
-        Coordinate up = new Coordinate(x, y - distance);
-        Coordinate rt = new Coordinate(x + distance, y);
-        Coordinate dw = new Coordinate(x, y + distance);
-        Coordinate lt = new Coordinate(x - distance, y);
-        Coordinate[] d = {up, rt, dw, lt};
-        List<Coordinate> cell = new ArrayList<>();
-
-        for (Coordinate coordinate : d) {
-            if (coordinate.getRow() > 0 && coordinate.getRow() < height && coordinate.getCol() > 0
-                && coordinate.getCol() < width) {
-                if (maze[coordinate.getRow()][coordinate.getCol()].getType() != Cell.Type.WALL
-                    && maze[coordinate.getRow()][coordinate.getCol()].getType() != Cell.Type.VISITED) {
-                    cell.add(coordinate);
-                }
-            }
-
-        }
-
-        return cell;
 
     }
 

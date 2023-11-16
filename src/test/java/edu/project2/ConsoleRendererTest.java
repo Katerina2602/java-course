@@ -10,11 +10,11 @@ class ConsoleRendererTest {
     void willReturnCorrectRender() {
         Maze maze = TestUtils.createTestMaze();
         String expectedRender = "" +
-            "░░░░░░████\n\r" +
-            "████░░██░░\n\r" +
-            "░░██░░░░░░\n\r" +
-            "░░██░░██░░\n\r" +
-            "░░██░░██░░\n\r";
+            "░░░░░░████" + System.lineSeparator() +
+            "████░░██░░" + System.lineSeparator() +
+            "░░██░░░░░░" + System.lineSeparator() +
+            "░░██░░██░░" + System.lineSeparator() +
+            "░░██░░██░░" + System.lineSeparator();
 
         String actualRender = renderer.render(maze);
         assertEquals(expectedRender, actualRender);

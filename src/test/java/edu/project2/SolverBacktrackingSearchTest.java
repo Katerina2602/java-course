@@ -15,18 +15,6 @@ class SolverBacktrackingSearchTest {
     private final Solver solver = new SolverBacktrackingSearch();
 
     @Test
-    void test() {
-        Generator generator = new GeneratorDepthFirstSearch();
-        Renderer renderer = new ConsoleRenderer();
-        Maze maze = generator.generate(21, 31);
-        Coordinate start = new Coordinate(1, 1);
-        Coordinate end = new Coordinate(19, 29);
-        Solver list = new SolverBacktrackingSearch();
-        list.solve(maze, start, end);
-
-    }
-
-    @Test
     void willFindCorrectPath() {
         List<Coordinate> expectedCoordinates = new ArrayList<>();
         expectedCoordinates.add(new Coordinate(0, 0));

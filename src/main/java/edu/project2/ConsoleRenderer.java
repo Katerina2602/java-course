@@ -23,19 +23,18 @@ public class ConsoleRenderer implements Renderer {
                     pageMaze.append("░░");
                 }
             }
-            pageMaze.append("\n\r");
+            pageMaze.append(System.lineSeparator());
         }
 
         return pageMaze.toString();
     }
 
     @Override
-    public String render(Maze maze, List<Coordinate> path) {
+    public void render(Maze maze, List<Coordinate> path) {
 
         for (Coordinate f : path) {
             maze.getGrid()[f.getRow()][f.getCol()].setType(Cell.Type.PATH);
         }
         render(maze);
-        return null;
     }
 }

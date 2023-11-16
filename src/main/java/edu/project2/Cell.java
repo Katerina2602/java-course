@@ -1,11 +1,9 @@
 package edu.project2;
 
 public class Cell {
-    private int row;
-    private int col;
+    private final int row;
+    private final int col;
     private Type type;
-
-    private int path;
 
     public Cell(int row, int col, Type type) {
         this.row = row;
@@ -24,14 +22,6 @@ public class Cell {
 
     public Type getType() {
         return type;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public void setCol(int col) {
-        this.col = col;
     }
 
     public void setType(Type type) {
