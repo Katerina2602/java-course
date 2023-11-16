@@ -9,16 +9,16 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.joining;
 
 public class Task {
-    public static final Integer ONE_HANGRIT = 100;
+    public static final Integer ONE_HUNDRED = 100;
 
-    //1
+    //1  Отсортировать животных по росту от самого маленького к самому большому -> List<Animal>
     public List<Animal> getSortByHeight(List<Animal> animal) {
         return animal.stream()
             .sorted(Comparator.comparing(Animal::height))
             .toList();
     }
 
-    //2
+    //2 Отсортировать животных по весу от самого тяжелого к самому легкому, выбрать k первых -> List<Animal>
     public List<Animal> getSortByWeight(List<Animal> animal, int k) {
         if (k >= animal.size() || k < 0) {
             throw new IllegalArgumentException("K не входит в размеры списка");
@@ -29,20 +29,20 @@ public class Task {
             .toList();
     }
 
-    //3
+    //3 Сколько животных каждого вида -> Map<Animal.Type, Integer>
     public Map<Animal.Type, Long> getCountAnimalInOpinion(List<Animal> animal) {
         return animal.stream()
             .collect(
                 Collectors.groupingBy(Animal::type, Collectors.counting()));
     }
 
-    //4
+    //4 У какого животного самое длинное имя -> Animal
     public Optional<Animal> getLongestName(List<Animal> animal) {
         return animal.stream()
             .max(Comparator.comparing(animal1 -> animal1.name().length()));
     }
 
-    //5
+    //5 Каких животных больше: самцов или самок -> Sex
     public Animal.Sex getSexWhoIsMore(List<Animal> animal) {
         return animal.stream()
             .collect(Collectors.groupingBy(Animal::sex, Collectors.counting()))
@@ -53,14 +53,14 @@ public class Task {
             .getKey();
     }
 
-    //6
+    //6 Самое тяжелое животное каждого вида -> Map<Animal.Type, Animal>
     public Map<Animal.Type, Optional<Animal>> getHeaviestAnimalOfType(List<Animal> animal) {
         return animal.stream()
             .collect(Collectors.groupingBy(Animal::type, Collectors.maxBy(Comparator.comparingInt(Animal::weight))));
 
     }
 
-    //7
+    //7 K-е самое старое животное -> Animal
     public Optional<Animal> getOldestAnimalKPosition(List<Animal> animal, int k) {
         if (k >= animal.size() || k < 0) {
             throw new IllegalArgumentException("Значение K не входит в размеры списка");
@@ -70,7 +70,7 @@ public class Task {
             .skip(k).findFirst();
     }
 
-    //8
+    //8 Самое тяжелое животное среди животных ниже k см -> Optional<Animal>
     public Optional<Animal> getHeaviestAnimalAndBelowK(List<Animal> animal, int k) {
         if (k < 0) {
             throw new IllegalArgumentException("K не может быть отрицательным");
@@ -79,38 +79,38 @@ public class Task {
             .filter(p -> (p.height() < k)).max(Comparator.comparing(Animal::weight));
     }
 
-    //9
+    //9 Сколько в сумме лап у животных в списке -> Integer
     public Integer getSumAllPaws(List<Animal> animal) {
         return animal.stream().mapToInt(Animal::paws).sum();
     }
 
-    //10
+    //10 Список животных, возраст у которых не совпадает с количеством лап -> List<Animal>
     public List<Animal> getAnimalWhenAgeIsNotCountPaws(List<Animal> animal) {
         return animal.stream()
             .filter(p -> (p.age() != p.paws())).toList();
     }
 
-    //11
+    //11 Список животных, которые могут укусить (bites == true) и рост которых превышает 100 см -> List<Animal>
     public List<Animal> getAnimalThatBiteAndHeightOverHundred(List<Animal> animal) {
         return animal.stream()
-            .filter(p -> (p.height() > ONE_HANGRIT) && p.bites()).toList();
+            .filter(p -> (p.height() > ONE_HUNDRED) && p.bites()).toList();
     }
 
-    //12
+    //12 Сколько в списке животных, вес которых превышает рост -> Integer
     public Long getCountAnimalWhenWeightMoreHeight(List<Animal> animals) {
         return animals.stream()
             .filter(p -> (p.weight() > p.height())).count();
 
     }
 
-    //13
+    //13 Список животных, имена которых состоят из более чем двух слов -> List<Animal>
     public List<Animal> getAnimalNameWithMoreTwoWords(List<Animal> animals) {
         return animals.stream()
-            .filter(animal -> animal.name().split(" ").length > 2)
+            .filter(animal -> animal.name().split("\\s+").length > 2)
             .toList();
     }
 
-    //14
+    //14 Есть ли в списке собака ростом более k см -> Boolean
     public boolean getHasDogHeightMoreHundred(List<Animal> animals, int k) {
         if (k < 0) {
             throw new IllegalArgumentException("K не может быть отрицательными");
@@ -120,7 +120,7 @@ public class Task {
             .anyMatch(animal -> animal.height() > k);
     }
 
-    //15
+    //15 Найти суммарный вес животных каждого вида, которым от k до l лет -> Map<Animal.Type, Integer>
     public Map<Animal.Type, Long> getSumWeightOfAnimalBtType(List<Animal> animals, int k, int l) {
         if (k <= 0 || l <= 0) {
             throw new IllegalArgumentException("K и L не могут быть отрицательными");
@@ -131,7 +131,7 @@ public class Task {
                 Collectors.groupingBy(Animal::type, Collectors.summingLong(Animal::weight)));
     }
 
-    //16
+    //16 Список животных, отсортированный по виду, затем по полу, затем по имени -> List<Animal>
     public List<Animal> getSortedListAnimal(List<Animal> animals) {
         return animals.stream()
             .sorted(Comparator.comparing(Animal::type)
@@ -141,7 +141,7 @@ public class Task {
 
     }
 
-    //17
+    //17 Правда ли, что пауки кусаются чаще, чем собаки -> Boolean (если данных для ответа недостаточно, вернуть false)
     public boolean getSpiderBitesMoreThatDog(List<Animal> animals) {
         List<Animal> spiders = animals.stream().filter(animal -> animal.type() == Animal.Type.SPIDER).toList();
         List<Animal> dogs = animals.stream().filter(animal -> animal.type() == Animal.Type.DOG).toList();
@@ -154,7 +154,7 @@ public class Task {
         }
     }
 
-    //18
+    //18 Найти самую тяжелую рыбку в 2-х или более списках -> Animal
     public Optional<Animal> getHeaviestFish(List<List<Animal>> list) {
         List<Animal> animals = list.stream()
             .flatMap(List::stream)
@@ -164,7 +164,8 @@ public class Task {
             .max(Comparator.comparing(Animal::weight));
     }
 
-    //19
+    //19 Животные, в записях о которых есть ошибки: вернуть имя и список ошибок -> Map<String, Set<ValidationError>>.
+    //Класс ValidationError и набор потенциальных проверок нужно придумать самостоятельно.
     public Map<String, Set<ValidationError>> getlistAnimalsErorrs(List<Animal> animals) {
         return animals.stream()
             .collect(Collectors.toMap(Animal::name, Validator::valid))
@@ -174,7 +175,8 @@ public class Task {
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
-    //20
+    //20 Сделать результат предыдущего задания более читабельным: вернуть имя и названия полей с ошибками,
+    // объединенные в строку -> Map<String, String>
     public Map<String, String> getlistAnimalsErorrs2(List<Animal> animals) {
         return getlistAnimalsErorrs(animals)
             .entrySet()
