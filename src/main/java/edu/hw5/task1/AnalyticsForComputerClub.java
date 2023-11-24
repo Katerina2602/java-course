@@ -15,23 +15,24 @@ public class AnalyticsForComputerClub {
 
     public String gatAverageTime(ArrayList<String> list) {
         long minuts = 0;
-        int caunt = 0;
+        int count = 0;
 
         for (String p : list) {
             Matcher matcher = PATTERN.matcher(p);
-            matcher.find();
-            String group1 = matcher.group(1);
-            String group2 = matcher.group(2);
-            LocalDateTime startTime = LocalDateTime.parse(group1, DATE_TIME_FORMATTER);
-            LocalDateTime endTime = LocalDateTime.parse(group2, DATE_TIME_FORMATTER);
-            Duration between = Duration.between(startTime, endTime);
-            minuts = minuts + between.toMinutes();
+            if (matcher.find()) {
+                String group1 = matcher.group(1);
+                String group2 = matcher.group(2);
+                LocalDateTime startTime = LocalDateTime.parse(group1, DATE_TIME_FORMATTER);
+                LocalDateTime endTime = LocalDateTime.parse(group2, DATE_TIME_FORMATTER);
+                Duration between = Duration.between(startTime, endTime);
+                minuts = minuts + between.toMinutes();
 
-            caunt++;
+                count++;
+            }
         }
         long average = 0;
-        if (caunt != 0) {
-            average = minuts / caunt;
+        if (count != 0) {
+            average = minuts / count;
         }
 
         return average / NUMBER_OF_MINUTES + "ч " + average % NUMBER_OF_MINUTES + "м";
