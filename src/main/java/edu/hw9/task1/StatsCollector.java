@@ -3,6 +3,7 @@ package edu.hw9.task1;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class StatsCollector {
@@ -15,14 +16,25 @@ public class StatsCollector {
     public List<Metric> stats() {
         return metrics.entrySet()
             .stream()
-            .map(entry -> new Metric(
-                entry.getKey(),
-                getSum(entry.getValue()),
-                getAverage(entry.getValue()),
-                getMin(entry.getValue()),
-                getMax(entry.getValue())
-            ))
+            .map(entry -> buildMetric(entry.getKey(), entry.getValue()))
             .toList();
+    }
+
+    private Metric buildMetric(String key, double[] values) {
+        CompletableFuture<Double> sumFuture = CompletableFuture.supplyAsync(() -> getSum(values));
+        CompletableFuture<Double> averageFuture = CompletableFuture.supplyAsync(() -> getAverage(values));
+        CompletableFuture<Double> minFuture = CompletableFuture.supplyAsync(() -> getMin(values));
+        CompletableFuture<Double> maxFuture = CompletableFuture.supplyAsync(() -> getMax(values));
+
+        CompletableFuture.allOf(sumFuture, averageFuture, minFuture, maxFuture).join();
+
+        return new Metric(
+            key,
+            sumFuture.join(),
+            averageFuture.join(),
+            minFuture.join(),
+            maxFuture.join()
+        );
     }
 
     private double getSum(double[] values) {
